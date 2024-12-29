@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(formData);
-      navigate('/'); // Redirect to the home page after login
+      navigate('https://mentormatching.netlify.app/'); // Redirect to the home page after login
     } catch (error) {
       console.error('Login error:', error);
     }
