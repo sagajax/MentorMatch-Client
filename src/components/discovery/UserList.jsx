@@ -1,5 +1,5 @@
 // client/src/components/discovery/UserList.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import api from '../../services/api';
 import UserCard from './UserCard';
 
@@ -13,11 +13,10 @@ const UserList = () => {
     availability: ''
   });
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      // Create query string only for non-empty filters
       const queryParams = new URLSearchParams();
       Object.entries(filters).forEach(([key, value]) => {
         if (value) queryParams.append(key, value);
@@ -31,12 +30,13 @@ const UserList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]); // useCallback ensures that fetchUsers only changes when filters change
 
   useEffect(() => {
     fetchUsers();
-  }, [filters]);
+  }, [filters, fetchUsers]); // Effect will run when either filters or fetchUsers change
 
+  
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({
       ...prev,
