@@ -47,7 +47,7 @@ const Register = () => {
         password: formData.password,
       });
 
-      navigate('/'); // Redirect to the home page after successful registration
+      navigate('https://mentormatching.netlify.app/'); // Redirect to the home page after successful registration
     } catch (error) {
       setError(error.message);
     }
